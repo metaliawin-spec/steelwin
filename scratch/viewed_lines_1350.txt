@@ -1,0 +1,44 @@
+Created At: 2026-10-15T19:14:42+05:30
+Completed At: 2026-10-15T19:14:42+05:30
+File Path: `file:///c:/Users/anshi/OneDrive/Documents/code/code%20project/js/modules/calculation.js`
+Total Lines: 3762
+Total Bytes: 228462
+Showing lines 1360 to 1395
+The following code has been modified to include a line number before every line, in the format: <line_number>: <original_line>. Please note that any changes targeting the original code should remove the line number, colon, and leading space.
+1360: }
+1361: 
+1362: function stringToColor(str) {
+1363:     let hash = 0;
+1364:     for (let i = 0; i < str.length; i++) { hash = str.charCodeAt(i) + ((hash << 5) - hash); }
+1365:     const hue = Math.abs(hash % 360);
+1366:     return `hsl(${hue}, 70%, 85%)`;
+1367: }
+1368: 
+1369: function summarizeRects(rects) {
+1370:     const summary = {};
+1371:     rects.forEach(r => {
+1372:         // Normalize label: Large dimension first for consistency
+1373:         const dim1 = Math.max(r.w, r.h);
+1374:         const dim2 = Math.min(r.w, r.h);
+1375:         const label = `${dim1}x${dim2}`;
+1376: 
+1377:         if (!summary[label]) summary[label] = 0;
+1378:         summary[label]++;
+1379:     });
+1380:     return Object.keys(summary).map(key => ({ label: key, count: summary[key] }));
+1381: }
+1382: 
+1383: // --- VISUAL RATE CALCULATOR (Legacy Style) ---
+1384: 
+1385: // --- DYNAMIC GRID & STONE CALCULATOR ---
+1386: 
+1387: function renderManualCalc(state) {
+1388:     try {
+1389:         // 1. Initialize State for Dynamic Grid if not present
+1390:         if (!state.rateCalc || !state.rateCalc.grid) {
+1391:             const defUnit = Store.state.settings?.preferences?.unit || 'cm';
+1392:             state.rateCalc = {
+1393:                 category: 'Master',
+1394:                 customerId: '',
+1395:                 materials: {
+The above content does NOT show the entire file contents. If you need to view any lines of the file which were not shown to complete your task, call this tool again to view those lines.

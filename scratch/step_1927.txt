@@ -1,0 +1,89 @@
+Created At: 2026-10-15T18:46:38+05:30
+Completed At: 2026-10-15T18:46:38+05:30
+File Path: `file:///c:/Users/anshi/OneDrive/Documents/code/code%20project/js/modules/calculation.js`
+Total Lines: 3219
+Total Bytes: 187309
+Showing lines 1280 to 1360
+The following code has been modified to include a line number before every line, in the format: <line_number>: <original_line>. Please note that any changes targeting the original code should remove the line number, colon, and leading space.
+1280:                 <div style="background: white; padding: 15px 20px; border-bottom: 2px solid #ccc; box-shadow: 0 2px 4px rgba(0,0,0,0.05);">
+1281:                     <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px dashed #ddd; padding-bottom: 10px; margin-bottom: 10px;">
+1282:                         <div>
+1283:                             <span style="font-size: 0.8rem; color: #777; text-transform: uppercase;">CLIENT NAME</span>
+1284:                             <select onchange="window.updateGrid('customerId', this.value)" style="display:block; font-size: 1.1rem; font-weight: bold; color: #1e293b; margin-top:2px; border:none; background:transparent; cursor:pointer; outline:none; border-bottom: 1px solid #e2e8f0; padding-bottom: 2px; -webkit-appearance: none; -moz-appearance: none;">
+1285:                                 <option value="" style="color:#999;">-- Quick Select Customer --</option>
+1286:                                 ${(Store.state.customers || []).map(c => `<option value="${c.id}" ${rc.customerId === c.id ? 'selected' : ''}>${c.name}</option>`).join('')}
+1287:                             </select>
+1288:                         </div>
+1289:                         <div style="text-align: right;">
+1290:                             <span style="font-size: 0.8rem; color: #777; text-transform: uppercase;">Design Model</span>
+1291:                             <div style="font-size: 1.1rem; font-weight: bold; color: #0288d1; margin-top:2px;">${generatedName}</div>
+1292:                         </div>
+1293:                     </div>
+1294:                     
+1295:                     <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 10px; align-items: end;">
+1296:                         <div style="display:flex; flex-direction:column; gap:4px;">
+1297:                             <label style="font-size:0.75rem; font-weight:bold; color:var(--color-text-heading);">Frame</label>
+1298:                             <select onchange="window.updateGrid('mat_frame', this.value)" style="padding: 6px; border: 1px solid var(--glass-border); background: var(--color-bg-card); color: var(--color-text-main); border-radius: 4px; font-size: 0.85rem;">
+1299:                                 <option value="">-- Select Frame --</option>
+1300:                                 ${(Store.state.materialCatalog || []).filter(m => (m.category || '').toLowerCase() === 'frame' || (m.category || '').toLowerCase() === 'pipe').map(m => `<option value="${m.id}" ${(rc.materials && (rc.materials.frame === m.id || rc.materials.frame === m.name)) ? 'selected' : ''}>${m.name} (₹${m.rate}/${m.unit})</option>`).join('')}
+1301:                             </select>
+1302:                         </div>
+1303:                         <div style="display:flex; flex-direction:column; gap:4px;">
+1304:                             <label style="font-size:0.75rem; font-weight:bold; color:var(--color-text-heading);">Panel / Sheet</label>
+1305:                             <select onchange="window.updateGrid('mat_panel', this.value)" style="padding: 6px; border: 1px solid var(--glass-border); background: var(--color-bg-card); color: var(--color-text-main); border-radius: 4px; font-size: 0.85rem;">
+1306:                                 <option value="">-- Select Panel --</option>
+1307:                                 ${(Store.state.materialCatalog || []).filter(m => (m.category || '').toLowerCase() === 'panel' || (m.category || '').toLowerCase() === 'glass').map(m => `<option value="${m.id}" ${(rc.materials && (rc.materials.panel === m.id || rc.materials.panel === m.name)) ? 'selected' : ''}>${m.name} (₹${m.rate}/${m.unit})</option>`).join('')}
+1308:                             </select>
+1309:                         </div>
+1310:                         <div style="display:flex; flex-direction:column; gap:4px;">
+1311:                             <label style="font-size:0.75rem; font-weight:bold; color:var(--color-text-heading);">Hinges</label>
+1312:                             <select onchange="window.updateGrid('mat_hinge', this.value)" style="padding: 6px; border: 1px solid var(--glass-border); background: var(--color-bg-card); color: var(--color-text-main); border-radius: 4px; font-size: 0.85rem;">
+1313:                                 <option value="">-- Select Hinge --</option>
+1314:                                 ${(Store.state.materialCatalog || []).filter(m => (m.category || '').toLowerCase() === 'hinges' || (m.category || '').toLowerCase() === 'hinge').map(m => `<option value="${m.id}" ${(rc.materials && (rc.materials.hinge === m.id || rc.materials.hinge === m.name)) ? 'selected' : ''}>${m.name} (₹${m.rate}/${m.unit})</option>`).join('')}
+1315:                             </select>
+1316:                         </div>
+1317:                         <div style="display:flex; flex-direction:column; gap:4px;">
+1318:                             <label style="font-size:0.75rem; font-weight:bold; color:var(--color-text-heading);">Lock / Accessories</label>
+1319:                             <select onchange="window.updateGrid('mat_lock', this.value)" style="padding: 6px; border: 1px solid var(--glass-border); background: var(--color-bg-card); color: var(--color-text-main); border-radius: 4px; font-size: 0.85rem;">
+1320:                                 <option value="">-- Select Lock / Acc --</option>
+1321:                                 ${(Store.state.materialCatalog || []).filter(m => (m.category || '').toLowerCase() === 'lock' || (m.category || '').toLowerCase() === 'hook').map(m => `<option value="${m.id}" ${(rc.materials && (rc.materials.lock === m.id || rc.materials.lock === m.name)) ? 'selected' : ''}>${m.name} (₹${m.rate}/${m.unit})</option>`).join('')}
+1322:                             </select>
+1323:                         </div>
+1324:                         <div style="display:flex; flex-direction:column; gap:4px;">
+1325:                             <label style="font-size:0.75rem; font-weight:bold; color:#555;">Measure Unit</label>
+1326:                             <select onchange="window.updateGrid('unit', this.value); window.saveDefaultUnit();" style="padding: 6px; border: 1px solid #ccc; background: #f1f8e9; color: #2e7d32; font-weight: bold; border-radius: 4px; font-size: 0.85rem;">
+1327:                                 <option value="cm" ${g.unit === 'cm' ? 'selected' : ''}>cm</option>
+1328:                                 <option value="mm" ${g.unit === 'mm' ? 'selected' : ''}>mm</option>
+1329:                                 <option value="inch" ${g.unit === 'inch' ? 'selected' : ''}>in</option>
+1330:                                 <option value="ft" ${g.unit === 'ft' ? 'selected' : ''}>ft</option>
+1331:                             </select>
+1332:                         </div>
+1333:                     </div>
+1334:                 </div>
+1335: 
+1336:                 <!-- Page 2: Manual Calculator Area -->
+1337: 
+1338:                 <!-- A. Top Categories / Presets -->
+1339:                 <div style="background: linear-gradient(to bottom, #555, #333); padding: 12px; display: flex; overflow-x: auto; align-items: center; border-bottom: 2px solid #222;">
+1340:                     
+1341:                     <!-- Seamless Button Group mimicking the classic layout requested -->
+1342:                     <div style="display: flex; align-items: stretch; border: 1px solid rgba(255,255,255,0.3); border-radius: 4px; overflow: hidden; background: rgba(0,0,0,0.3);">
+1343:                         
+1344:                         <div style="padding: 8px 16px; display: flex; align-items: center; background: rgba(255,255,255,0.05); color: #90caf9; font-size: 0.9rem; font-weight: bold; border-right: 1px solid rgba(255,255,255,0.2);">
+1345:                             WINDOW PANES:
+1346:                         </div>
+1347:                         
+1348:                         <div style="display: flex; align-items: center; padding: 0 12px; border-right: 1px solid rgba(255,255,255,0.2); background: rgba(0,0,0,0.2);">
+1349:                             <span style="color: white; font-size: 0.9rem; margin-right: 6px;">Custom Kalli:</span>
+1350:                             <input type="number" min="1" max="20" value="${g.cols}" style="width: 45px; height: 24px; text-align: center; padding: 0; font-weight: bold; border-radius: 2px; border: 1px solid #777; background: #444; color: white;" onchange="window.updateGrid('cols', this.value)" onkeydown="if(event.key==='Enter'){ window.updateGrid('cols', this.value); this.blur(); }">
+1351:                         </div>
+1352: 
+1353:                         ${[1, 2, 3, 4, 5].map((c, idx) => `
+1354:                             <button style="
+1355:                                 background: ${rc.grid.cols === c ? '#4caf50' : 'transparent'}; 
+1356:                                 color: white;
+1357:                                 border: none; border-right: ${idx < 4 ? '1px solid rgba(255,255,255,0.2)' : 'none'}; 
+1358:                                 padding: 8px 18px; font-weight: bold; font-size: 0.95rem; cursor: pointer; transition: all 0.2s;
+1359:                             " onclick="window.loadPreset(${c})">${c} Kalli</button>
+1360:                         `).join('')}
+The above content does NOT show the entire file contents. If you need to view any lines of the file which were not shown to complete your task, call this tool again to view those lines.

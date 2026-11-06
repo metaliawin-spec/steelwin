@@ -1,0 +1,115 @@
+
+--- STEP 2107 ---
+Created At: 2026-10-15T19:16:41+05:30
+Completed At: 2026-10-15T19:16:41+05:30
+File Path: `file:///c:/Users/anshi/OneDrive/Documents/code/code%20project/js/modules/calculation.js`
+Total Lines: 3762
+Total Bytes: 228462
+Showing lines 1550 to 1650
+The following code has been modified to include a line number before every line, in the format: <line_number>: <original_line>. Please note that any changes targeting the original code should remove the line number, colon, and leading space.
+1550:             if (key === 'cols') {
+1551:                  rc.grid.cols = Math.max(1, v);
+1552:                  
+1553:                  // Dynamic scaling logic: 1 Kalli = 50 (overall width), standard height = 140
+1554:                  rc.grid.totalW = rc.grid.cols * 50;
+1555:                  rc.grid.totalH = 140;
+1556:                  
+1557:                  // Reset arrays matching new col count
+1558:                  rc.grid.paneWidths = Array(rc.grid.cols).fill(50.0);
+1559:                  rc.grid.panePartitions = Array(rc.grid.cols).fill(0);
+1560:                  rc.grid.partitionPos = Array(rc.grid.cols).fill('center');
+1561:             }
+1562:             if (key === 'rows') rc.grid.rows = Math.max(1, v);
+1563:             if (key === 'totalW') {
+1564:                  rc.grid.totalW = v || 0;
+1565:                  // Rescale panes proportionally
+1566:                  const equal = parseFloat((rc.grid.totalW / rc.grid.cols).toFixed(1));
+1567:                  if(rc.grid.paneWidths) {
+1568:                      for(let i=0; i<rc.grid.paneWidths.length; i++) rc.grid.paneWidths[i] = equal;
+1569:                  }
+1570:             }
+1571:             if (key === 'totalH') rc.grid.totalH = v || 0;
+1572:             if (key === 'unit') rc.grid.unit = val;
+1573:             if (key === 'frameWeightPerFt') rc.params.frameWeightPerFt = v || 0;
+1574:             if (key === 'frameRatePerKg') rc.params.frameRatePerKg = v || 0;
+1575:             if (key === 'hingeRate') rc.params.hingeRate = v || 0;
+1576:             Store.notify();
+1577:         };
+1578: 
+1579:         window.modifyGrid = (dim, delta) => {
+1580:             snapshotCalc();
+1581:             if (dim === 'cols') window.updateGrid('cols', rc.grid.cols + delta);
+1582:             if (dim === 'rows') rc.grid.rows = Math.max(1, rc.grid.rows + delta);
+1583:             Store.notify();
+1584:         };
+1585:         
+1586:         window.loadPreset = (panes) => {
+1587:             snapshotCalc();
+1588:             rc.category = `${panes} Pane Window`;
+1589:             window.updateGrid('cols', panes);
+1590:         };
+1591: 
+1592:         window.updatePanePx = (index, val) => {
+1593:             snapshotCalc();
+1594:             let newVal = parseFloat(val) || 0;
+1595:             if (newVal < 0) newVal = 0;
+1596:             // Never let a pane exceed total width
+1597:             if (newVal > g.totalW) newVal = g.totalW; 
+1598: 
+1599:             g.paneWidths[index] = newVal;
+1600:             
+1601:             // Auto-balance remaining panes to strictly enforce the static Overall Width
+1602:             if (g.cols > 1) {
+1603:                  const remainingW = Math.max(0, g.totalW - newVal);
+1604:                  const splitVal = parseFloat((remainingW / (g.cols - 1)).toFixed(2));
+1605:                  
+1606:                  for (let i = 0; i < g.cols; i++) {
+1607:                      if (i !== index) {
+1608:                          g.paneWidths[i] = splitVal;
+1609:                      }
+1610:                  }
+1611:                  
+1612:                  // Reconcile floating point roundoff errors onto the last non-edited pane
+1613:                  const currentSum = g.paneWidths.reduce((a,b)=>a+b, 0);
+1614:                  if (Math.abs(currentSum - g.totalW) > 0.01) {
+1615:                      const lastIterIndex = index === g.cols - 1 ? g.cols - 2 : g.cols - 1;
+1616:                      g.paneWidths[lastIterIndex] += (g.totalW - currentSum);
+1617:                      g.paneWidths[lastIterIndex] = parseFloat(g.paneWidths[lastIterIndex].toFixed(2));
+1618:                  }
+1619:             } else {
+1620:                  // For 1 pane designs, scaling it intrinsically scales the total width
+1621:                  g.totalW = newVal;
+1622:             }
+1623:             Store.notify();
+1624:         };
+1625: 
+1626:         window.setPartitions = (index, val) => {
+1627:              snapshotCalc();
+1628:              let p = parseInt(val) || 0;
+1629:              if (p < 0) p = 0;
+1630:              g.panePartitions[index] = p;
+1631:              if(!g.partitionPos) g.partitionPos = Array(g.cols).fill('center');
+1632:              Store.notify();
+1633:         };
+1634: 
+1635:         window.setPartitionPos = (index, val) => {
+1636:              snapshotCalc();
+1637:              if(!g.partitionPos) g.partitionPos = Array(g.cols).fill('center');
+1638:              g.partitionPos[index] = val;
+1639:              Store.notify();
+1640:         };
+1641: 
+1642:         window.saveDefaultUnit = () => {
+1643:              if(!Store.state.settings) return;
+1644:              if(!Store.state.settings.preferences) Store.state.settings.preferences = {};
+1645:              Store.state.settings.preferences.defaultUnit = rc.grid.unit;
+1646:              Store.notify();
+1647:              alert(`Settings permanently saved!`);
+1648:         };
+1649: 
+1650:         window.saveCostSheetToCustomer = () => {
+The above content does NOT show the entire file contents. If you need to view any lines of the file which were not shown to complete your task, call this tool again to view those lines.
+
+
+--- STEP 2512 ---
+

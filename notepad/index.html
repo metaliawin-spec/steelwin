@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modern Notepad</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <h2><i class="fa-solid fa-book"></i> Notes</h2>
+                <button id="add-note-btn" class="btn primary-btn" title="Add Note">
+                    <i class="fa-solid fa-plus"></i> New
+                </button>
+            </div>
+            <div class="search-bar">
+                <i class="fa-solid fa-search"></i>
+                <input type="text" id="search-input" placeholder="Search notes...">
+            </div>
+            <div class="notes-list" id="notes-list">
+                <!-- Notes will be injected here -->
+            </div>
+        </aside>
+
+        <!-- Main Editor Area -->
+        <main class="editor-area">
+            <div id="welcome-screen" class="welcome-screen active">
+                <div class="welcome-content">
+                    <i class="fa-solid fa-feather-pointed"></i>
+                    <h2>Welcome to Notepad</h2>
+                    <p>Select a note or create a new one to start writing.</p>
+                </div>
+            </div>
+            
+            <div id="editor-screen" class="editor-screen">
+                <header class="editor-header">
+                    <input type="text" id="note-title" placeholder="Note Title..." autocomplete="off">
+                    <div class="editor-actions">
+                        <span id="save-status" class="save-status">Saved</span>
+                        <button id="delete-note-btn" class="btn danger-btn" title="Delete Note">
+                            <i class="fa-solid fa-trash"></i>
+                        </button>
+                    </div>
+                </header>
+                <div class="editor-body">
+                    <textarea id="note-content" placeholder="Start typing your note here..."></textarea>
+                </div>
+            </div>
+        </main>
+    </div>
+    <script src="app.js"></script>
+</body>
+</html>

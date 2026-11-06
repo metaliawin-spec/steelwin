@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WINPRO – Windows Calculation & Quotation System</title>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Outfit:wght@500;600;700&display=swap"
+        rel="stylesheet">
+
+    <!-- Icons & Document Export Libraries -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <script>
+        // Graceful fallback if CDN icons/libraries fail to load offline
+        if (typeof window.lucide === 'undefined') {
+            window.lucide = { createIcons: function () {} };
+        }
+    </script>
+
+    <!-- Instant Theme Initialization (Prevents theme flash) -->
+    <script>
+        (function () {
+            try {
+                const savedTheme = localStorage.getItem('winpro_theme') || 'dark';
+                document.documentElement.setAttribute('data-theme', savedTheme);
+            } catch (e) {}
+        })();
+    </script>
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="css/variables.css">
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        /* Globally eliminate spin stepper arrows from all number inputs */
+        input::-webkit-outer-spin-button,
+        input::-webkit-inner-spin-button,
+        input[type="number"]::-webkit-outer-spin-button,
+        input[type="number"]::-webkit-inner-spin-button {
+            -webkit-appearance: none !important;
+            margin: 0 !important;
+            display: none !important;
+        }
+        input[type="number"], .hide-spin {
+            -moz-appearance: textfield !important;
+            appearance: textfield !important;
+        }
+    </style>
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+</head>
+
+<body>
+    <div id="app">
+        <!-- Sidebar -->
+        <aside class="sidebar glass-panel" id="sidebar">
+            <div onclick="if(window.navigate)window.navigate('dashboard');else window.location.hash='#dashboard';" style="padding: 0.5rem 0 1.25rem 0; display: flex; align-items: center; gap: 0.75rem; cursor: pointer;" title="Back to Admin Dashboard">
+                <div style="width: 36px; height: 36px; background: var(--brand-gradient); border-radius: 10px; display: flex; align-items: center; justify-content: center; box-shadow: 0 0 14px var(--color-primary-glow); flex-shrink: 0;">
+                    <i data-lucide="shield-check" style="color: white; width: 22px; height: 22px;"></i>
+                </div>
+                <div>
+                    <h2 style="font-size: 1.15rem; font-weight: 700; color: var(--color-text-heading); letter-spacing: 0.5px; margin: 0; line-height: 1.2;">StyloBuild</h2>
+                    <p style="font-size: 0.68rem; color: var(--color-text-muted); margin: 0; line-height: 1.2;">Stronger Homes, Together Tomorrow.</p>
+                </div>
+            </div>
+
+            <nav id="main-nav" style="display: flex; flex-direction: column; gap: 0.4rem;"></nav>
+
+            <div id="sidebar-footer" style="margin-top: auto; padding-top: 0.85rem;">
+                <div style="font-size: 0.65rem; color: #64748b; margin-top: 0.75rem; text-align: center; border-top: 1px solid var(--glass-border); padding-top: 0.5rem;">
+                    STELLO BUILD BMS v2.8.0
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content" id="main-view"></main>
+    </div>
+
+    <!-- Application Logic (Standalone bundle works with both http:// and direct file:// double-click) -->
+    <script src="js/bundle.js" onerror="handleBundleError()"></script>
+
+    <!-- Error Logging & Icon Initialization -->
+    <script>
+        function handleBundleError() {
+            console.error("Failed to load js/bundle.js");
+            const mainView = document.getElementById('main-view');
+            if (mainView) {
+                mainView.innerHTML = `
+                    <div style="margin: 2rem; padding: 2rem; background: rgba(239, 68, 68, 0.1); border: 1px solid rgba(239, 68, 68, 0.3); border-radius: 12px; color: #f87171; font-family: sans-serif;">
+                        <h2 style="margin-top: 0; color: #ef4444;">⚠️ Application Bundle Missing or Failed to Load</h2>
+                        <p>The application could not load <code>js/bundle.js</code>.</p>
+                        <p><strong>To resolve this:</strong></p>
+                        <ol style="line-height: 1.8;">
+                            <li>If running via web server: Run <code>node server.js</code> or double-click <code>start.bat</code>.</li>
+                            <li>To rebuild the bundle manually: Run <code>node scripts/bundle.js</code> in your terminal.</li>
+                        </ol>
+                    </div>
+                `;
+            }
+        }
+
+        window.onerror = function (msg, url, lineNo, columnNo, error) {
+            console.error("Application Error:", msg, url, lineNo, error);
+            return false;
+        };
+
+        function refreshIcons() {
+            if (window.lucide && typeof window.lucide.createIcons === 'function') {
+                window.lucide.createIcons();
+            }
+        }
+        window.addEventListener('load', refreshIcons);
+        if (document.readyState !== 'loading') {
+            refreshIcons();
+        } else {
+            document.addEventListener('DOMContentLoaded', refreshIcons);
+        }
+    </script>
+</body>
+
+</html>
